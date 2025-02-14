@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PocketBaseDotnetClient", "PocketBaseDotnetClient\PocketBaseDotnetClient.csproj", "{9E1B7269-7BBC-4C84-8914-03283948D8E4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PocketBaseConsoleExample", "PocketBaseConsoleExample\PocketBaseConsoleExample.csproj", "{F3D1D88B-B944-4DFE-8232-01A1063B5543}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9E1B7269-7BBC-4C84-8914-03283948D8E4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9E1B7269-7BBC-4C84-8914-03283948D8E4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9E1B7269-7BBC-4C84-8914-03283948D8E4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9E1B7269-7BBC-4C84-8914-03283948D8E4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F3D1D88B-B944-4DFE-8232-01A1063B5543}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F3D1D88B-B944-4DFE-8232-01A1063B5543}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F3D1D88B-B944-4DFE-8232-01A1063B5543}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F3D1D88B-B944-4DFE-8232-01A1063B5543}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
