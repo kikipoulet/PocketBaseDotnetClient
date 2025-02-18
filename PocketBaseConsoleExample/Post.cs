@@ -10,3 +10,4 @@ public class Post
         public string message { get; set; }
         public string updated { get; set; }
 }
+

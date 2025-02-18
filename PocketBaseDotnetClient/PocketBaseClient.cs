@@ -24,6 +24,7 @@ public class PocketBaseClient
     {
         return new PocketBaseQuery(this, collectionName);
     }
+    
 
     public void ApplyHook()
     {

@@ -22,6 +22,18 @@ public class PocketBaseQuery
         _collection = collection;
     }
 
+    public RealTimeCollection<T> ListenToChanges<T>( Action<RealTimeAction<T>> OnMessageReceived)
+    {
+        var url = _Client._httpClient.BaseAddress.ToString();
+        var realtimecollection = new RealTimeCollection<T>(url);
+
+        realtimecollection.OnMessage += OnMessageReceived;
+
+        realtimecollection.StartListening(_collection);
+
+        return realtimecollection;
+    }
+
     public PocketBaseQuery Filter(string filter)
     {
         _parameters["filter"] = HttpUtility.UrlEncode(filter);
@@ -32,6 +44,18 @@ public class PocketBaseQuery
     {
         _parameters["page"] = page.ToString();
         _parameters["perPage"] = perPage.ToString();
+        return this;
+    }
+    
+    public PocketBaseQuery Sort(string sortBy)
+    {
+        _parameters["sort"] = HttpUtility.UrlEncode(sortBy);
+        return this;
+    }
+    
+    public PocketBaseQuery Expand(string expandBy)
+    {
+        _parameters["expand"] = HttpUtility.UrlEncode(expandBy);
         return this;
     }
 

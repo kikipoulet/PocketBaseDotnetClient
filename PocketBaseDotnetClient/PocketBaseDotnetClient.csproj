@@ -6,7 +6,9 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <PackageReference Include="3v.EvtSource" Version="2.0.0" />
       <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+      <PackageReference Include="System.Net.ServerSentEvents" Version="9.0.2" />
     </ItemGroup>
 
 </Project>
