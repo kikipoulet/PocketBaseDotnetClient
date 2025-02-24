@@ -2,7 +2,7 @@
 
 namespace PocketBaseDotnetClient;
 
-public class QueryResult<T>
+public class CollectionQueryResult<T>
 {
     public List<T> items { get; set; }
     public int page { get; set; }

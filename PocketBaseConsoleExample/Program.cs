@@ -12,13 +12,31 @@ using PocketBaseDotnetClient;
 
 var pb = new PocketBaseClient(new Uri("http://127.0.0.1:8090"));
 
+
+
+/*
+bool isLogged = await pb.Auth.LoginAsync("superuser@gmail.com", "testtesttest", "_superusers");
+
+
+var collections = await pb.ListCollections();
+
+foreach (var collection in collections.items)
+    Console.WriteLine(collection.name);
+
+
+var logs = await pb.ListLogs();
+
+foreach (var log in logs.items)
+    Console.WriteLine(log.message);
+
+
 bool isLogged = await pb.Auth.LoginAsync("test@test.com", "testtest");
 
 bool success = await pb.Collection("posts").InsertAsync(new Post(){message = "createdtest"});
 
  string resultRawJson = await pb.Collection("posts").GetAsync();
 
-QueryResult<Post> result = await pb.Collection("posts").GetAsync<Post>();
+CollectionQueryResult<Post> result = await pb.Collection("posts").GetAsync<Post>();
 
 result.items.ForEach(post => Console.WriteLine(post.message));
 
@@ -52,6 +70,6 @@ realtimecollection.StartListening("posts");
 
 
 
-
+*/
 
 

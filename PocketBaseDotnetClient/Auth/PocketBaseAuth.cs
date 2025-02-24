@@ -8,16 +8,18 @@ public class PocketBaseAuth
 {
     private readonly HttpClient _httpClient;
     public string? AuthToken { get; private set; } 
-    public string? UserId { get; private set; }   
+    public string? UserId { get; private set; }
+
+
 
     public PocketBaseAuth(HttpClient httpClient)
     {
         _httpClient = httpClient;
     }
 
-    public async Task<bool> LoginAsync(string email, string password)
+    public async Task<bool> LoginAsync(string email, string password, string authcollection = "users")
     {
-        var url = "/api/collections/users/auth-with-password";
+        var url = "/api/collections/" + authcollection + "/auth-with-password";
         var json = JsonConvert.SerializeObject(new { identity = email, password });
         var content = new StringContent(json, Encoding.UTF8, "application/json");
 

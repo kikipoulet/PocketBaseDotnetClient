@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿
 using System.Linq;
 using System.Net.Http;
 using System.Text;
@@ -8,52 +7,31 @@ using System.Web;
 using Newtonsoft.Json;
 using PocketBaseDotnetClient;
 
-public class PocketBaseQuery
+public partial class CollectionQuery
 {
-    private HttpClient _httpClient;
-    private PocketBaseClient _Client;
-    private string _collection;
-    private Dictionary<string, string> _parameters = new();
-
-    public PocketBaseQuery(PocketBaseClient client, string collection)
-    {
-        _httpClient = client._httpClient;
-        _Client = client;
-        _collection = collection;
-    }
-
-    public RealTimeCollection<T> ListenToChanges<T>( Action<RealTimeAction<T>> OnMessageReceived)
-    {
-        var url = _Client._httpClient.BaseAddress.ToString();
-        var realtimecollection = new RealTimeCollection<T>(url);
-
-        realtimecollection.OnMessage += OnMessageReceived;
-
-        realtimecollection.StartListening(_collection);
-
-        return realtimecollection;
-    }
-
-    public PocketBaseQuery Filter(string filter)
+    
+    public CollectionQuery Filter(string filter)
     {
         _parameters["filter"] = HttpUtility.UrlEncode(filter);
         return this;
     }
 
-    public PocketBaseQuery Page(int page, int perPage)
+    public CollectionQuery Page(int page, int perPage)
     {
         _parameters["page"] = page.ToString();
         _parameters["perPage"] = perPage.ToString();
         return this;
     }
     
-    public PocketBaseQuery Sort(string sortBy)
+    
+    
+    public CollectionQuery Sort(string sortBy)
     {
         _parameters["sort"] = HttpUtility.UrlEncode(sortBy);
         return this;
     }
     
-    public PocketBaseQuery Expand(string expandBy)
+    public CollectionQuery Expand(string expandBy)
     {
         _parameters["expand"] = HttpUtility.UrlEncode(expandBy);
         return this;
@@ -70,11 +48,11 @@ public class PocketBaseQuery
         return await response.Content.ReadAsStringAsync();
     }
     
-    public async Task<QueryResult<T>> GetAsync<T>()
+    public async Task<CollectionQueryResult<T>> GetAsync<T>()
     {
         _Client.ApplyHook();
         var json = await GetAsync();
-        return JsonConvert.DeserializeObject<QueryResult<T>>(json);
+        return JsonConvert.DeserializeObject<CollectionQueryResult<T>>(json);
     }
     
     public async Task<bool> InsertAsync<T>(T data)
@@ -87,5 +65,4 @@ public class PocketBaseQuery
         var response = await _httpClient.PostAsync(url, content);
         return response.EnsureSuccessStatusCode().IsSuccessStatusCode;
     }
-   
 }
