@@ -1,3 +1,18 @@
+Simple C# Client for PocketBase. WIP.
+
+PocketBase is weirdly pleasant to work with, so I focus on giving as simple as possible APIs in this library.
+
+Right now, this library can : 
+- Auth with mail & password
+- List Collections
+- List Items in a Collection, and use Filters
+- Insert Item in a Collection
+- List Logs
+- Use Real-Time to listen changes in a Collection
+
+Probably more to come obviously, especially on CRUD.
+
+<br/>
 
 # Auth
 
@@ -105,6 +120,20 @@ await pb.Collection("posts")
 
 <br/>
 
+### List Collections 
+
+<br/>
+
+```csharp
+var collections = await pb.ListCollections();
+
+foreach (var collection in collections.items)
+    Console.WriteLine(collection.name);
+```
+
+NB : You probably need to log in as superuser to do that.
+
+<br/>
 
 # Real-Time
 
@@ -132,3 +161,18 @@ realtimecollection.OnMessage += action =>
 
 realtimecollection.StartListening("posts");
 ```
+
+<br/>
+
+# Logs
+
+<br/>
+
+```csharp
+var logs = await pb.ListLogs();
+
+foreach (var log in logs.items)
+    Console.WriteLine(log.message);
+```
+
+
