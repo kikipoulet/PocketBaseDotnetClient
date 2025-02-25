@@ -13,6 +13,18 @@ using PocketBaseDotnetClient;
 var pb = new PocketBaseClient(new Uri("http://127.0.0.1:8090"));
 
 
+/* Insertion
+bool success = await pb.Collection("posts").InsertAsync(new Post(){message = "simple", attachment = new PocketBaseFileUpload(new MemoryStream(File.ReadAllBytes(@"C:\2a.png")), "image.png")}); 
+
+await pb.Collection("posts").InsertAsync(new {message = "untyped"});
+
+await pb.Collection("posts")
+    .NewItem()
+    .With("message", "fluent method")
+    .With("attachment",  new PocketBaseFileUpload(new MemoryStream(File.ReadAllBytes(@"C:\2a.png"))))
+    .InsertAsync();
+*/
+
 
 /*
 bool isLogged = await pb.Auth.LoginAsync("superuser@gmail.com", "testtesttest", "_superusers");
@@ -32,7 +44,6 @@ foreach (var log in logs.items)
 
 bool isLogged = await pb.Auth.LoginAsync("test@test.com", "testtest");
 
-bool success = await pb.Collection("posts").InsertAsync(new Post(){message = "createdtest"});
 
  string resultRawJson = await pb.Collection("posts").GetAsync();
 

@@ -20,7 +20,6 @@ public class PocketBaseClient
         
         Auth = new PocketBaseAuth(_httpClient);
     }    
-        
     
     public CollectionQuery Collection(string collectionName)
     {

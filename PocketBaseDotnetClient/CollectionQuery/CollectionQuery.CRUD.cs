@@ -1,4 +1,5 @@
 ﻿
+using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
@@ -6,6 +7,7 @@ using System.Threading.Tasks;
 using System.Web;
 using Newtonsoft.Json;
 using PocketBaseDotnetClient;
+
 
 public partial class CollectionQuery
 {
@@ -54,15 +56,64 @@ public partial class CollectionQuery
         var json = await GetAsync();
         return JsonConvert.DeserializeObject<CollectionQueryResult<T>>(json);
     }
+
     
     public async Task<bool> InsertAsync<T>(T data)
     {
         var url = $"/api/collections/{_collection}/records";
-        var json = JsonConvert.SerializeObject(data);
-        var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+        using var form = new MultipartFormDataContent();
+        
+        foreach (var prop in typeof(T).GetProperties())
+        {
+            var value = prop.GetValue(data);
+            if (value != null)
+            {
+                if (prop.PropertyType == typeof(PocketBaseFileUpload))
+                {
+                    PocketBaseFileUpload fileUpload = (PocketBaseFileUpload)value;
+                    if (fileUpload.Stream != null && fileUpload.Stream.Length > 0)
+                    {
+                        fileUpload.Stream.Position = 0; 
+
+                        var fileContent = new StreamContent(fileUpload.Stream);
+                        fileContent.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/octet-stream");
+
+                        form.Add(fileContent, prop.Name, fileUpload.Filename);
+                    }
+                }
+                else
+                {
+                    form.Add(new StringContent(value.ToString(), Encoding.UTF8), prop.Name); 
+                }
+            }
+        }
         
         _Client.ApplyHook();
-        var response = await _httpClient.PostAsync(url, content);
+        var response = await _httpClient.PostAsync(url, form);
         return response.EnsureSuccessStatusCode().IsSuccessStatusCode;
+    }
+
+    public InsertionQuery NewItem()
+    {
+        return new InsertionQuery(this);
+    }
+    
+}
+
+public class PocketBaseFileUpload
+{
+    public MemoryStream Stream;
+    public string Filename = "data.png";
+
+    public PocketBaseFileUpload(MemoryStream stream)
+    {
+        Stream = stream;
+    }
+
+    public PocketBaseFileUpload(MemoryStream stream, string filename)
+    {
+        Stream = stream;
+        Filename = filename;
     }
 }

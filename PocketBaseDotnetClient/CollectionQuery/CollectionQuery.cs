@@ -12,7 +12,7 @@ using PocketBaseDotnetClient;
 
 public partial class CollectionQuery
 {
-    protected HttpClient _httpClient;
+    protected internal HttpClient _httpClient;
     protected internal PocketBaseClient _Client;
     protected internal string _collection;
     private Dictionary<string, string> _parameters = new();
